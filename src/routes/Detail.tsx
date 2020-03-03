@@ -69,7 +69,6 @@ export default function Detail() {
       id
     }
   });
-  console.log(data);
 
   return (
     <Container>
