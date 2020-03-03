@@ -9,6 +9,7 @@ const GET_MOVIES = gql`
     movies {
       id
       medium_cover_image
+      isLiked @client
     }
   }
 `;
@@ -16,6 +17,7 @@ const GET_MOVIES = gql`
 type movie = {
   id: number;
   medium_cover_image: string;
+  isLiked: boolean;
 };
 
 const Container = styled.div`
@@ -69,7 +71,12 @@ export default function Home() {
       {loading && <Loading>Loading...</Loading>}
       <Movies>
         {data?.movies?.map((m: movie) => (
-          <Movie key={m.id} id={m.id} bg={m.medium_cover_image} />
+          <Movie
+            key={m.id}
+            id={m.id}
+            isLiked={m.isLiked}
+            bg={m.medium_cover_image}
+          />
         ))}
       </Movies>
     </Container>
