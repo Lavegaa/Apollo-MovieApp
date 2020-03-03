@@ -8,9 +8,9 @@ type poster = {
   bg: string;
 };
 
-const LIKE_MOVIE = gql`
-  mutation likeMovie($id: String!) {
-    likeMovie(id: $id) @client
+const TOGGLE_MOVIE = gql`
+  mutation toggleLikeMovie($id: String!, $isLiked: boolean!) {
+    toggleLikeMovie(id: $id, isLiked: $isLiked) @client
   }
 `;
 
@@ -38,8 +38,8 @@ export default function Movie({
   bg: string;
   isLiked: boolean;
 }) {
-  const [likeMovie] = useMutation(LIKE_MOVIE, {
-    variables: { id: id }
+  const [toggleLikeMovie] = useMutation(TOGGLE_MOVIE, {
+    variables: { id: id, isLiked: isLiked }
   });
   return (
     <Container>
@@ -48,7 +48,7 @@ export default function Movie({
       </Link>
       <button
         onClick={() => {
-          likeMovie();
+          toggleLikeMovie();
         }}
       >
         {isLiked ? "Unlike" : "Like"}
